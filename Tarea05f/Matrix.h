@@ -30,4 +30,29 @@ public:
             delete[] matrix[i];
         delete[] matrix;
     }
+
+    E getValue(int row, int col) {
+        if (row < 0 || row >= rows)
+            throw runtime_error("Invalid row.");
+        if (col < 0 || col >= cols)
+            throw runtime_error("Invalid column.");
+        return matrix[row][col];
+    }
+
+    void setValue(int row, int col, E value) {
+        if (row < 0 || row >= rows)
+            throw runtime_error("Invalid row.");
+        if (col < 0 || col >= cols)
+            throw runtime_error("Invalid column.");
+        matrix[row][col] = value;
+    }
+
+    int getRows() {
+        return rows;
+    }
+
+    int getColumns() {
+        return cols;
+    }
+
 };
