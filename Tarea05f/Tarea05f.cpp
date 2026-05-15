@@ -5,22 +5,15 @@ using namespace std;
 
 int main() {
 
+    Matrix<int>* matriz = new Matrix<int>(3, 3);
 
-    Matrix<int> m(3, 4);
-    cout << "Matriz creada. " << endl;
+    cout << "Matriz con setAll(0):" << endl;
+    matriz->setAll(0);
+    matriz->print();
 
-    // Asignar val
-    int valor = 1;
-    for (int i = 0; i < m.getRows(); i++)
-        for (int j = 0; j < m.getColumns(); j++)
-            m.setValue(i, j, valor++);
+    cout << "\nMatriz con setAll(7):" << endl;
+    matriz->setAll(7);
+    matriz->print();
 
-
-    cout << "Contenido:" << endl;
-    for (int i = 0; i < m.getRows(); i++) {
-        for (int j = 0; j < m.getColumns(); j++)
-            cout << m.getValue(i, j) << "\t";
-        cout << endl;
-    }
-
+    delete matriz;
 };

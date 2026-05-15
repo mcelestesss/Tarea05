@@ -55,4 +55,17 @@ public:
         return cols;
     }
 
+    void setAll(E value) {
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                matrix[i][j] = value;
+    }
+
+    void print() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++)
+                cout << matrix[i][j] << "\t";
+            cout << endl;
+        }
+    }
 };
