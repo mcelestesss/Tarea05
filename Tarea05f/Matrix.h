@@ -108,6 +108,34 @@ public:
     }
 
 
+    void removeRow(int row) {
+        if (row < 0 || row >= rows)
+            throw runtime_error("Invalid row.");
+
+        Element** newMatrix = new Element * [rows - 1];
+
+        for (int r = 0; r < row; r++)
+            newMatrix[r] = matrix[r];
+        for (int r = row + 1; r < rows; r++)
+            newMatrix[r - 1] = matrix[r];
+
+        delete[] matrix[row];
+        delete[] matrix;
+
+        matrix = newMatrix;
+        rows--;
+    }
+
+   
+    void removeColumn(int col) {
+        if (col < 0 || col >= cols)
+            throw runtime_error("Invalid column.");
+        transpose();    
+        removeRow(col); 
+        transpose();    
+    }
+
+
     void print() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++)
