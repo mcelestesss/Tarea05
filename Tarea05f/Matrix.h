@@ -3,12 +3,12 @@
 #include <iostream>
 using namespace std;
 
-template <typename E>
+template <typename Element>
 class Matrix {
 private:
-    E** matrix;
-    int rows;
-    int cols;
+    Element** matrix; 
+    int rows;         
+    int cols;        
 
 public:
     Matrix(int rows, int cols) {
@@ -18,20 +18,21 @@ public:
         this->rows = rows;
         this->cols = cols;
 
-
-        matrix = new E * [rows];
+        matrix = new Element * [rows];
 
         for (int i = 0; i < rows; i++)
-            matrix[i] = new E[cols];
+            matrix[i] = new Element[cols];
     }
 
     ~Matrix() {
         for (int i = 0; i < rows; i++)
             delete[] matrix[i];
+
         delete[] matrix;
     }
 
-    E getValue(int row, int col) {
+    
+    Element getValue(int row, int col) {
         if (row < 0 || row >= rows)
             throw runtime_error("Invalid row.");
         if (col < 0 || col >= cols)
@@ -39,7 +40,8 @@ public:
         return matrix[row][col];
     }
 
-    void setValue(int row, int col, E value) {
+    
+    void setValue(int row, int col, Element value) {
         if (row < 0 || row >= rows)
             throw runtime_error("Invalid row.");
         if (col < 0 || col >= cols)
@@ -47,19 +49,64 @@ public:
         matrix[row][col] = value;
     }
 
+   
     int getRows() {
         return rows;
     }
 
+  
     int getColumns() {
         return cols;
     }
 
-    void setAll(E value) {
+    void setAll(Element value) {
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 matrix[i][j] = value;
     }
+
+
+    void transpose() {
+        Element** newMatrix = new Element * [cols];
+        for (int i = 0; i < cols; i++) {
+            newMatrix[i] = new Element[rows];
+            for (int j = 0; j < rows; j++)
+                newMatrix[i][j] = matrix[j][i];
+        }
+
+        for (int i = 0; i < rows; i++)
+            delete[] matrix[i];
+        delete[] matrix;
+
+        matrix = newMatrix;
+        int temp = rows;
+        rows = cols;
+        cols = temp;
+    }
+
+
+    void addRow(Element value) {
+        Element** newMatrix = new Element * [rows + 1];
+
+        for (int i = 0; i < rows; i++)
+            newMatrix[i] = matrix[i];
+
+        newMatrix[rows] = new Element[cols];
+        for (int j = 0; j < cols; j++)
+            newMatrix[rows][j] = value;
+
+        delete[] matrix;
+        matrix = newMatrix;
+        rows++;
+    }
+
+
+    void addColumn(Element value) {
+        transpose();   
+        addRow(value); 
+        transpose();   
+    }
+
 
     void print() {
         for (int i = 0; i < rows; i++) {

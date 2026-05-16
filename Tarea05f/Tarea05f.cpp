@@ -1,19 +1,26 @@
 #include <iostream>
 #include "Matrix.h"
-
 using namespace std;
 
 int main() {
+   
+    Matrix<int>* matriz = new Matrix<int>(2, 3);
+    matriz->setAll(1);
 
-    Matrix<int>* matriz = new Matrix<int>(3, 3);
-
-    cout << "Matriz con setAll(0):" << endl;
-    matriz->setAll(0);
+    cout << "Matriz original:" << endl;
     matriz->print();
 
-    cout << "\nMatriz con setAll(7):" << endl;
-    matriz->setAll(7);
+    matriz->addRow(9);
+    cout << "\nDespues debe ser 3x3:" << endl;
     matriz->print();
+    cout << "Filas: " << matriz->getRows() << ", Columnas: " << matriz->getColumns() << endl;
+
+    matriz->addColumn(5);
+    cout << "\nDespues debe ser 3x4:" << endl;
+    matriz->print();
+    cout << "Filas: " << matriz->getRows() << ", Columnas: " << matriz->getColumns() << endl;
 
     delete matriz;
+
+    return 0;
 };
